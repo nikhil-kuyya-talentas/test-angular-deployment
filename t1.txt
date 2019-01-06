@@ -1,0 +1,15 @@
+.
+├── angular.json
+├── apps
+├── karma.conf.js
+├── libs
+├── tools
+│   ├── schematics
+│   └── tsconfig.tools.json
+├── nx.json
+├── package.json
+├── package-lock.json
+├── README.md
+├── tsconfig.json
+└── tslint.json
+

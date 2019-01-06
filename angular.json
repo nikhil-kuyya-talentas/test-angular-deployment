@@ -2,7 +2,131 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
-  "projects": {},
+  "projects": {
+    "test-one": {
+      "root": "apps/test-one/",
+      "sourceRoot": "apps/test-one/src",
+      "projectType": "application",
+      "prefix": "test",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "sass"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/test-one",
+            "index": "apps/test-one/src/index.html",
+            "main": "apps/test-one/src/main.ts",
+            "polyfills": "apps/test-one/src/polyfills.ts",
+            "tsConfig": "apps/test-one/tsconfig.app.json",
+            "assets": [
+              "apps/test-one/src/favicon.ico",
+              "apps/test-one/src/assets"
+            ],
+            "styles": [
+              "apps/test-one/src/styles.sass"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/test-one/src/environments/environment.ts",
+                  "with": "apps/test-one/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "test-one:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "test-one:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "test-one:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/test-one/tsconfig.app.json",
+              "apps/test-one/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/test-one/jest.config.js",
+            "tsConfig": "apps/test-one/tsconfig.spec.json",
+            "setupFile": "apps/test-one/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "test-one-e2e": {
+      "root": "apps/test-one-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/test-one-e2e/cypress.json",
+            "tsConfig": "apps/test-one-e2e/tsconfig.e2e.json",
+            "devServerTarget": "test-one:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "test-one:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/test-one-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "warnings": {
       "typescriptMismatch": false,
@@ -18,5 +142,6 @@
     "@nrwl/schematics:library": {
       "style": "sass"
     }
-  }
+  },
+  "defaultProject": "test-one"
 }

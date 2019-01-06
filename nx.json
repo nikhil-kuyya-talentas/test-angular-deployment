@@ -1,5 +1,5 @@
 {
-  "npmScope": "y",
+  "npmScope": "lib-suite",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -7,5 +7,12 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "test-one": {
+      "tags": []
+    },
+    "test-one-e2e": {
+      "tags": []
+    }
+  }
 }
